@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader
-from architectures import generate_square_subsequent_mask
+from architectures.transformer import generate_square_subsequent_mask
 import logging
 
 def evaluate(model: nn.Module, dataloader: DataLoader, criterion: nn.Module, device: torch.device,
@@ -36,13 +36,13 @@ def evaluate(model: nn.Module, dataloader: DataLoader, criterion: nn.Module, dev
                 memory_key_padding_mask = src_key_padding_mask
             )
             logits = logits.view(-1, logits.size(-1))
-            loss = criterion(logits, tgt_input)
+            loss = criterion(logits, tgt_output)
 
             batch_loss = loss.item()
             epoch_loss += batch_loss
             
             # Log batch-level information
-            logging.into(f"Validation Batch {batch_idx +1}/{batch_count}, Loss: {batch_loss: .4f}")
+            logging.info(f"Validation Batch {batch_idx +1}/{batch_count}, Loss: {batch_loss: .4f}")
 
         avg_epoch_loss = epoch_loss / batch_count
         logging.info(f"Validation Epoch Completed, Average Loss: {avg_epoch_loss: .4f}")

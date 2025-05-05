@@ -1,5 +1,5 @@
 import torch.nn as nn
-from utils.positional_encoding import PositionalEncoding
+from .positional_encoding import PositionalEncoding
 
 class InputLayer(nn.Module):
     def __init__(self, vocab_size: int, embedding_dim: int, seq_len: int, dropout: float):

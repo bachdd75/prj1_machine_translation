@@ -22,21 +22,39 @@ def translate_sentence(model: nn.Module, sentence: str, vi_tokenizer, vi_vocab: 
     with torch.no_grad():
         # Tokenize the input sentence
         tokenized_input = vi_tokenizer(sentence)
-        src_indices = [vi_vocab.get(token, vi_vocab["<unk>"]) for token in tokenized_input]  # Handle unknown tokens
+        src_indices = [vi_vocab["<sos>"]] + [vi_vocab.get(token, vi_vocab["<unk>"]) for token in tokenized_input] + [vi_vocab["<eos>"]]
         src_tensor = torch.tensor(src_indices, dtype=torch.long).unsqueeze(0).to(device)
 
         # Initialize target sequence with <sos>
         tgt_indices = [en_vocab["<sos>"]]
-        for _ in range(50):  # Maximum sequence length
+        max_len = 50  # Maximum sequence length
+        for _ in range(max_len):
             tgt_tensor = torch.tensor(tgt_indices, dtype=torch.long).unsqueeze(0).to(device)
-            output = model(src_tensor, tgt_tensor, tgt_mask=None)
+
+            # Generate masks
+            tgt_seq_len = tgt_tensor.size(1)
+            tgt_mask = generate_square_subsequent_mask(tgt_seq_len).to(device)
+
+            # Create padding masks
+            src_key_padding_mask = (src_tensor == vi_vocab["<pad>"]).to(device)
+            tgt_key_padding_mask = (tgt_tensor == en_vocab["<pad>"]).to(device)
+
+            # Forward pass
+            output = model(
+                src=src_tensor,
+                tgt=tgt_tensor,
+                tgt_mask=tgt_mask,
+                src_key_padding_mask=src_key_padding_mask,
+                tgt_key_padding_mask=tgt_key_padding_mask,
+                memory_key_padding_mask=src_key_padding_mask,
+            )
             next_token_index = output.argmax(dim=-1)[:, -1].item()
             tgt_indices.append(next_token_index)
             if next_token_index == en_vocab["<eos>"]:
                 break
 
         # Convert indices to tokens and join into a sentence
-        output_tokens = [en_vocab.get_itos()[idx] for idx in tgt_indices[1:-1]]
+        output_tokens = [en_vocab.get_itos()[idx] for idx in tgt_indices[1:]]  # Include <eos> in output
         output_sentence = " ".join(output_tokens)
 
     return output_sentence
@@ -95,7 +113,8 @@ model = Transformer(
 )
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-model.load_state_dict(torch.load("best_transformer_model.pth"))
+# Load model state from weights folder inside machine_translation
+model.load_state_dict(torch.load(os.path.join(os.path.dirname(__file__), 'weights', 'best_transformer_model.pth'), map_location=device))
 model.to(device)
 model.eval()
 

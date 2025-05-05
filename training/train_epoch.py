@@ -1,8 +1,8 @@
 import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader
-from utils import vi_vocab, en_vocab
-from architectures import generate_square_subsequent_mask
+from ..utils import vi_vocab, en_vocab
+from ..architectures.transformer import generate_square_subsequent_mask
 import logging
 
 def train_epoch(model: nn.Module, dataloader: DataLoader, criterion: nn.Module,

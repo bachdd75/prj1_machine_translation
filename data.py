@@ -11,6 +11,11 @@ train_df = pd.DataFrame(dataset['train'])
 valid_df = pd.DataFrame(dataset['valid'])
 test_df = pd.DataFrame(dataset['test'])
 
+# Flatten the 'translation' column
+train_df = pd.json_normalize(train_df['translation'])
+valid_df = pd.json_normalize(valid_df['translation'])
+test_df = pd.json_normalize(test_df['translation'])
+
 print("Train set:")
 print(train_df.head())
 
@@ -36,8 +41,8 @@ class TranslationDataset(Dataset):
 
     def __getitem__(self, idx):
         # Get source and target sentences from the DataFrame
-        src_sentence = self.df.iloc[idx]['vi']  # Assuming 'vi' column for Vietnamese
-        tgt_sentence = self.df.iloc[idx]['en']  # Assuming 'en' column for English
+        src_sentence = self.df.iloc[idx]['translation']['vi']  # Assuming 'vi' column for Vietnamese
+        tgt_sentence = self.df.iloc[idx]['translation']['en']  # Assuming 'en' column for English
 
         # Tokenize sentences
         src_tokens = self.src_tokenizer(src_sentence)

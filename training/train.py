@@ -21,8 +21,6 @@ def train(model: nn.Module, train_dataloader: DataLoader, valid_dataloader: Data
             criterion,
             optimizer,
             device,
-            vi_vocab,
-            en_vocab,
             clip,
         )
 

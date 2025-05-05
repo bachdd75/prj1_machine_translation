@@ -1,6 +1,6 @@
 import torch.nn as nn
 import torch
-from utils import InputLayer
+from ..utils import InputLayer
 from .encoder import EncoderLayer, EncoderBlock
 from .decoder import DecoderLayer, DecoderBlock
 
@@ -34,7 +34,7 @@ class Transformer(nn.Module):
             vocab_size=tgt_vocab_size,
             embedding_dim=embed_dim,
             seq_len=tgt_seq_len,
-            dropout=dropout
+            dropout = dropout
         )
 
         # Decoder Blcok
@@ -65,7 +65,7 @@ class Transformer(nn.Module):
 
         # Decoder
         decoder_embedded = self.decoder_input(tgt) # (batch_size, src_seq_len, embed_dim)
-        decoder_output = self.T_destinationcoder(
+        decoder_output = self.decoder(
             decoder_embedded,
             memory,
             tgt_mask = tgt_mask,
