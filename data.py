@@ -5,7 +5,7 @@ import torch
 from torch.utils.data import Dataset
 
 # Load the dataset
-dataset = load_dataset("harouzie/vi_en-translation" , cache_dir=None)
+dataset = load_dataset("harouzie/vi_en-translation" , download_mode="force_redownload")
 
 train_df = pd.DataFrame(dataset['train'])
 valid_df = pd.DataFrame(dataset['valid'])
