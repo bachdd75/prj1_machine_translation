@@ -1,0 +1,33 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+pyvenv.cfg
+Include/
+Lib/
+Scripts/
+share/
+
+# Log files
+training.log
+
+# Model weights and temporary files
+*.pth
+
+# IDE and editor files
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# Environment variables and secrets
+.env
+
+# Windows-specific files
+Thumbs.db
+
+# Other potential ignores
+*.log
+*.bak
+*.swp

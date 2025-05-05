@@ -1,0 +1,12 @@
+torch==2.0.1 
+underthesea==6.8.4 
+pandas==2.0.3 
+torchtext==0.15.2 
+maturin==1.7.4 
+wheel==0.44.0 
+transformers==4.38.2 
+sentencepiece==0.2.0 
+sacrebleu==2.4.3 
+numpy==1.26.4 
+scikit-learn==1.6.1 
+scipy==1.15.2
