@@ -1,8 +1,8 @@
 import torch.nn as nn
 import torch
 from utils import InputLayer
-from encoder import EncoderLayer, EncoderBlock
-from decoder import DecoderLayer, DecoderBlock
+from .encoder import EncoderLayer, EncoderBlock
+from .decoder import DecoderLayer, DecoderBlock
 
 class Transformer(nn.Module):
     def __init__(self, src_vocab_size: int, tgt_vocab_size: int, embed_dim: int = 512, src_seq_len: int=100, tgt_seq_len: int=100,
