@@ -3,10 +3,10 @@ import torch.nn as nn
 from .train import train
 from .data_loader import setup_dataloaders
 from architectures.transformer import Transformer
-from utils import vi_vocab, en_vocab
+from utils.tokenizer import vi_vocab, en_vocab
 import logging
 import os
-from utils.tokenizer import vi_tokenizer, en_tokenizer  # Adjust import path if necessary
+from utils.tokenizer import vi_tokenizer, en_tokenizer  
 
 # Configure logging
 logging.basicConfig(

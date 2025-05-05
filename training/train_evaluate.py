@@ -1,7 +1,6 @@
 import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader
-from utils.tokenizer import vi_vocab, en_vocab
 from architectures import generate_square_subsequent_mask
 import logging
 

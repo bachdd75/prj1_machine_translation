@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 from architectures.transformer import Transformer, generate_square_subsequent_mask
 from training.data_loader import setup_dataloaders
-from utils import vi_vocab, en_vocab
+from utils.tokenizer import vi_vocab, en_vocab
 from utils.tokenizer import vi_tokenizer, en_tokenizer
 import logging
 import os
