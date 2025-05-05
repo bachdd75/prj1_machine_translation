@@ -21,7 +21,7 @@ class DecoderLayer(nn.Module):
 
         self.ffn = nn.Sequential(
             nn.Linear(embed_dim, ff_dim),
-            nn.ReLU,
+            nn.ReLU(),
             nn.Linear(ff_dim, embed_dim)
         )
         self.layernorm_1 = nn.LayerNorm(embed_dim, eps = 1e-6)
