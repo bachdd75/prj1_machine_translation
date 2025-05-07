@@ -1,5 +1,5 @@
 from torch.utils.data import DataLoader
-from ..data import TranslationDataset, train_df, valid_df, test_df, collate_fn
+from data import TranslationDataset, train_df, valid_df, test_df, collate_fn
 
 def create_dataloader(dataset, batch_size=512, shuffle=False, collate_fn=collate_fn):
     return DataLoader(

@@ -1,6 +1,6 @@
 import torch.nn as nn
 import torch
-from ..utils import InputLayer
+from utils.embedding_input import InputLayer
 from .encoder import EncoderLayer, EncoderBlock
 from .decoder import DecoderLayer, DecoderBlock
 

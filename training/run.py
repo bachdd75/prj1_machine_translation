@@ -1,12 +1,12 @@
 import torch
 import torch.nn as nn
-from .train import train
-from .data_loader import setup_dataloaders
-from ..architectures.transformer import Transformer
-from ..utils.tokenizer import vi_vocab, en_vocab
+from train import train
+from data_loader import setup_dataloaders
+from architectures.transformer import Transformer
+from utils.tokenizer import vi_vocab, en_vocab
 import logging
 import os
-from ..utils.tokenizer import vi_tokenizer, en_tokenizer 
+from utils.tokenizer import vi_tokenizer, en_tokenizer 
 
 # Configure logging
 logging.basicConfig(
@@ -64,7 +64,7 @@ history = train(
     criterion,
     device,
     vi_vocab,
-    en_vocab
+    en_vocab,
     num_epochs=num_epochs,
     clip=1.0,
     save_path=save_path,

@@ -2,8 +2,8 @@ import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader
 from tqdm import tqdm
-from .train_epoch import train_epoch
-from .train_evaluate import evaluate
+from train_epoch import train_epoch
+from train_evaluate import evaluate
 import logging
 
 def train(model: nn.Module, train_dataloader: DataLoader, valid_dataloader: DataLoader,optimizer: torch.optim.Optimizer, 
